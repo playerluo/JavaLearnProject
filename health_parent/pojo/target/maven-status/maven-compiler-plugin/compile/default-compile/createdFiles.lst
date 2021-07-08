@@ -1,0 +1,13 @@
+com\playerluo\health\pojo\User.class
+com\playerluo\health\pojo\Setmeal.class
+com\playerluo\health\pojo\OrderSetting.class
+com\playerluo\health\pojo\CheckGroup.class
+com\playerluo\entity\QueryPageBean.class
+com\playerluo\entity\Result.class
+com\playerluo\health\pojo\Role.class
+com\playerluo\health\pojo\Permission.class
+com\playerluo\health\pojo\Member.class
+com\playerluo\health\pojo\Menu.class
+com\playerluo\health\pojo\CheckItem.class
+com\playerluo\entity\PageResult.class
+com\playerluo\health\pojo\Order.class
