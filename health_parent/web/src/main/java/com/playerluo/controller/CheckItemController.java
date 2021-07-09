@@ -57,4 +57,38 @@ public class CheckItemController {
     }
     return result;
   }
+
+  /**
+   * 删除检查项
+   * @param id
+   * @return
+   */
+  @RequestMapping("/delete")
+  public Result delete(int id){
+    Result result = null;
+    int row = checkItemService.delete(id);
+    if (row > 0 ){
+      result = new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
+    }else {
+      result = new Result(false,MessageConstant.DELETE_CHECKITEM_FAIL);
+    }
+    return result;
+  }
+
+  /**
+   * 更新检查项
+   * @param checkItem
+   * @return
+   */
+  @RequestMapping("/upDate")
+  public Result upDate(@RequestBody CheckItem checkItem){
+    int row = checkItemService.upDate(checkItem);
+    Result result = null;
+    if (row > 0 ){
+      result = new Result(true,MessageConstant.EDIT_CHECKITEM_SUCCESS);
+    }else {
+      result = new Result(false,MessageConstant.EDIT_CHECKITEM_FAIL);
+    }
+    return result;
+  }
 }

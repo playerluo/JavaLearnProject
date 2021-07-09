@@ -25,5 +25,21 @@ public interface CheckItemDao {
    * @return
    */
   List<CheckItem> findPage(QueryPageBean queryPageBean);
+
+  /**
+   * 根据检查项id查询是否被检查组使用
+   * @param id
+   * @return 被检查组使用的总数
+   */
+  long findById(int id);
+
+  /**
+   * 根据Id删除检查项
+   * @param id
+   * @return
+   */
+  int deleteById(int id);
+
+  int upDate(CheckItem checkItem);
 }
 

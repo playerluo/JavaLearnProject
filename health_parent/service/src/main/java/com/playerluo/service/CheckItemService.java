@@ -18,4 +18,18 @@ public interface CheckItemService {
    * @return  PageResult
    */
   PageResult<CheckItem> findPage(QueryPageBean queryPageBean);
+
+  /**
+   * 删除检查项
+   * @param id
+   * @return
+   */
+  int delete(int id);
+
+  /**
+   * 更新检查项
+   * @param checkItem
+   * @return
+   */
+  int upDate(CheckItem checkItem);
 }

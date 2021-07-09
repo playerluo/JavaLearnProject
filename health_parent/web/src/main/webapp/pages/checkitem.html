@@ -231,6 +231,16 @@
     methods: {
       //编辑
       handleEdit() {
+        axios.post("/checkItem/upDate",this.formData).then(response =>{
+          if (response.data.flag) {
+            this.$message.success(response.data.message)
+            this.dialogFormVisible4Edit = false;
+            this.findPage();
+          }else {
+            this.$message.error(response.data.message)
+            this.dialogFormVisible4Edit = false;
+          }
+        })
       },
       //添加
       handleAdd() {
@@ -257,9 +267,7 @@
 
       //分页查询
       findPage() {
-
         //提交的参数
-
         //请求的地址
         /**
          * 发送请求，这里提交的参数包含了：
@@ -269,13 +277,12 @@
          *    total：总记录数有多少条
          */
         axios.post("/checkItem/findPage", this.pagination).then(response => {
-          console.log(response);
           if (response.data.flag) {//表示成功了
-            this.$message.success(response.data.message);
+            // this.$message.success(response.data.message);
             this.pagination.total= response.data.data.total;
             this.dataList = response.data.data.rows;
           }else {
-            this.$message.error(response.data.message);
+            // this.$message.error(response.data.message);
           }
         })
       },
@@ -296,12 +303,39 @@
       },
       // 弹出编辑窗口
       handleUpdate(row) {
+        this.dialogFormVisible4Edit = true;
+        this.formData = row;
       },
       //切换页码
       handleCurrentChange(currentPage) {
+        this.pagination.currentPage = currentPage;
+        this.findPage();
       },
       // 删除
       handleDelete(row) {
+        this.$confirm('确认删除该检查项吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.post("/checkItem/delete?id=" + row.id).then(response=>{
+            if (response.data.flag){
+              this.$message.success(response.data.message);
+              this.findPage()
+            }else {
+              this.$message.error(response.data.message);
+            }
+          })
+          // this.$message({
+          //   type: 'success',
+          //   message: '删除成功!'
+          // });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       }
     }
   })

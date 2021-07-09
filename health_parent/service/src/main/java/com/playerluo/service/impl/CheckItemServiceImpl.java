@@ -46,4 +46,20 @@ public class CheckItemServiceImpl implements CheckItemService {
     List<CheckItem> list = dao.findPage(queryPageBean);
     return new  PageResult<>(total, list);
   }
+
+  @Override
+  public int delete(int id) {
+    long findById = dao.findById(id);
+    if (findById > 0 ){//有检查组使用
+      System.out.println("已被使用,无法删除");
+      return 0;
+    }else {
+      return dao.deleteById(id);
+    }
+  }
+
+  @Override
+  public int upDate(CheckItem checkItem) {
+      return dao.upDate(checkItem);
+  }
 }
