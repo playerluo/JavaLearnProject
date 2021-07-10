@@ -1,14 +1,13 @@
 package com.playerluo.controller;
 
 import com.playerluo.constant.MessageConstant;
+import com.playerluo.entity.PageResult;
+import com.playerluo.entity.QueryPageBean;
 import com.playerluo.entity.Result;
 import com.playerluo.health.pojo.CheckGroup;
 import com.playerluo.service.CheckGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CheckGroupController {
@@ -31,5 +30,17 @@ public class CheckGroupController {
       result = new Result(false, MessageConstant.ADD_CHECKGROUP_FAIL);
     }
     return result;
+  }
+
+  @GetMapping("/checkgroup")
+  public Result findPage(QueryPageBean queryPageBean){
+    System.out.println(queryPageBean);
+    try {
+      PageResult<CheckGroup> page = checkGroupService.findPage(queryPageBean);
+      return new Result(true , MessageConstant.QUERY_CHECKGROUP_SUCCESS , page);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new Result(false , MessageConstant.QUERY_CHECKGROUP_FAIL);
+    }
   }
 }

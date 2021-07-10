@@ -303,6 +303,13 @@
       },
       //分页查询
       findPage() {
+        axios.get("/checkgroup",{params:this.pagination}).then(response=>{
+          console.log(response);
+          if (response.data.flag){
+            this.pagination.total = response.data.data.total;
+            this.dataList = response.data.data.rows;
+          }
+        })
       },
       // 重置表单
       resetForm() {

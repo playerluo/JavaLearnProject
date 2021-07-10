@@ -1,5 +1,7 @@
 package com.playerluo.service;
 
+import com.playerluo.entity.PageResult;
+import com.playerluo.entity.QueryPageBean;
 import com.playerluo.health.pojo.CheckGroup;
 
 /**
@@ -7,4 +9,6 @@ import com.playerluo.health.pojo.CheckGroup;
  */
 public interface CheckGroupService {
   int add(CheckGroup checkGroup ,int [] checkItemIds);
+
+  PageResult<CheckGroup> findPage(QueryPageBean queryPageBean);
 }

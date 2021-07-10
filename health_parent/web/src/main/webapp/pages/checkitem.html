@@ -304,7 +304,7 @@
       // 弹出编辑窗口
       handleUpdate(row) {
         this.dialogFormVisible4Edit = true;
-        this.formData = row;
+        this.formData = JSON.parse(JSON.stringify(row));
       },
       //切换页码
       handleCurrentChange(currentPage) {

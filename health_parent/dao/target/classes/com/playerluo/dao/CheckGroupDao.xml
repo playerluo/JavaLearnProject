@@ -15,5 +15,14 @@
     insert into t_checkgroup_checkitem values (#{groupId},#{itemId})
   </insert>
 
+  <select id="findPage" parameterType="queryPageBean" resultType="CheckGroup">
+    select * from t_checkgroup
+    <where>
+      <if test="queryString != ' ' and queryString != null ">
+        code like "%"#{queryString}"%" or name like "%"#{queryString}"%"  or helpCode like "%"#{queryString}"%"
+      </if>
+    </where>
+  </select>
+
 
 </mapper>

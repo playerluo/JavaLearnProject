@@ -1,11 +1,17 @@
 package com.playerluo.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.playerluo.dao.CheckGroupDao;
+import com.playerluo.entity.PageResult;
+import com.playerluo.entity.QueryPageBean;
 import com.playerluo.health.pojo.CheckGroup;
 import com.playerluo.service.CheckGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 用于处理检查组业务
@@ -18,6 +24,12 @@ public class CheckGroupServiceImpl implements CheckGroupService {
   @Autowired
   private CheckGroupDao checkGroupDao;
 
+  /**
+   * 新增检查组
+   * @param checkGroup
+   * @param checkItemIds
+   * @return
+   */
   @Override
   public int add(CheckGroup checkGroup, int[] checkItemIds) {
     int row = checkGroupDao.add(checkGroup);
@@ -29,4 +41,20 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     }
     return row > 0 && row2 == checkItemIds.length ? 1 : 0;
   }
+
+  /**
+   * 检查组的分页效果
+   * 使用分页插件完成
+   * @param queryPageBean
+   * @return
+   */
+  @Override
+  public PageResult<CheckGroup> findPage(QueryPageBean queryPageBean) {
+    //查询第几页，每页多少条
+    PageHelper.startPage(queryPageBean.getCurrentPage(),queryPageBean.getPageSize());
+    Page<CheckGroup> page = checkGroupDao.findPage(queryPageBean);
+    return new PageResult<>(page.getTotal(),page.getResult());
+  }
+
+
 }
