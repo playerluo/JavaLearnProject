@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.playerluo.dao.CheckGroupDao">
+
+  <!-- 新增检查组 -->
+  <!-- keyProperty : 要求添加完毕后返回的主键赋值到对象里哪个属性上 -->
+  <!-- useGeneratedKeys : 默认值是false,使用数据库创建出来的自增id-->
+  <insert id="add" parameterType="checkGroup" keyProperty="id" useGeneratedKeys="true">
+    insert into t_checkgroup values (null , #{code} , #{name} , #{helpCode} , #{sex} , #{remark} , #{attention} );
+  </insert>
+
+  <insert id="addCheckGroupItems">
+    insert into t_checkgroup_checkitem values (#{groupId},#{itemId})
+  </insert>
+
+
+</mapper>
