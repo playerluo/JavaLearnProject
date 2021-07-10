@@ -62,4 +62,13 @@ public class CheckItemServiceImpl implements CheckItemService {
   public int upDate(CheckItem checkItem) {
       return dao.upDate(checkItem);
   }
+
+  /**
+   * 查询所有的检查项
+   * @return
+   */
+  @Override
+  public List<CheckItem> findAll() {
+    return dao.findAll();
+  }
 }

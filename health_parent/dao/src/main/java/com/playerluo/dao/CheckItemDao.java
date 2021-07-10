@@ -41,5 +41,7 @@ public interface CheckItemDao {
   int deleteById(int id);
 
   int upDate(CheckItem checkItem);
+
+  List<CheckItem> findAll();
 }
 

@@ -11,29 +11,40 @@
       </if>
     </where>
   </sql>
+
   <!-- 添加数据 -->
   <insert id="add" parameterType="checkItem">
     insert into t_checkitem values (null , #{code} , #{name} , #{sex} , #{age} , #{price} , #{type} , #{attention} , #{remark})
   </insert>
+
   <!--查找数据的总数量-->
   <select id="findCount" parameterType="queryPageBean" resultType="long" >
     select count(*) from t_checkitem
     <include refid="findPageSql"></include>
   </select>
+
   <!-- 查找页面 -->
   <select id="findPage" parameterType="queryPageBean" resultType="checkItem">
     select * from t_checkitem
     <include refid="findPageSql"></include>
     limit #{offset} , #{pageSize}
   </select>
+
   <!-- 通过ID查找 -->
   <select id="findById" parameterType="int" resultType="long">
     select count(*) from t_checkgroup_checkitem where checkitem_id = #{id}
   </select>
+
+  <!-- 查询所有的检查项 -->
+  <select id="findAll" resultType="CheckItem">
+    select * from t_checkitem;
+  </select>
+
   <!-- 通过ID删除 -->
   <delete id="deleteById" parameterType="int">
     delete from t_checkitem where id = #{id}
   </delete>
+
   <!-- 编辑检查项 -->
   <update id="upDate" parameterType="checkItem">
     update t_checkitem set

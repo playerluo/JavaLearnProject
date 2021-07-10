@@ -8,9 +8,12 @@ import com.playerluo.health.pojo.CheckItem;
 import com.playerluo.service.CheckItemService;
 import com.playerluo.service.impl.CheckItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 这是用来处理检查项的controller
@@ -24,6 +27,21 @@ public class CheckItemController {
   @Autowired
   private CheckItemService checkItemService;
 
+  @GetMapping("/Items")
+  public Result findAll(){
+    try {
+      List<CheckItem> all = checkItemService.findAll();
+      return new Result(true,MessageConstant.QUERY_CHECKITEM_SUCCESS,all);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
+    }
+  }
+  /**
+   * 查询所有页面
+   * @param queryPageBean
+   * @return
+   */
   @RequestMapping("/findPage")
   public Result findPage(@RequestBody QueryPageBean queryPageBean){
     Result result = null;

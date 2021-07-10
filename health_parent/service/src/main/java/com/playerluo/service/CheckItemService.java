@@ -4,6 +4,8 @@ import com.playerluo.entity.PageResult;
 import com.playerluo.entity.QueryPageBean;
 import com.playerluo.health.pojo.CheckItem;
 
+import java.util.List;
+
 public interface CheckItemService {
   /**
    * 添加检查项
@@ -32,4 +34,6 @@ public interface CheckItemService {
    * @return
    */
   int upDate(CheckItem checkItem);
+
+  List<CheckItem> findAll();
 }
