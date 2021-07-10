@@ -166,7 +166,7 @@
             </el-tabs>
           </template>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取消</el-button>
+            <el-button @click="handleAddCancel()">取消</el-button>
             <el-button type="primary" @click="handleAdd()">确定</el-button>
           </div>
         </el-dialog>
@@ -285,12 +285,20 @@
       //编辑
       handleEdit() {
       },
+      //添加取消
+      handleAddCancel(){
+        this.dialogFormVisible = false;
+        this.resetForm();
+      },
       //添加
       handleAdd() {
-        console.log(this.formData);
-        console.log(this.checkitemIds);
         axios.post("/checkGroup/" + this.checkitemIds ,this.formData).then(response => {
-          console.log(response);
+          if (response.data.flag){
+            this.$message.success(response.data.message);
+            this.dialogFormVisible = false;
+            this.findPage();
+            this.resetForm();
+          }
         })
       },
       //分页查询
@@ -298,6 +306,9 @@
       },
       // 重置表单
       resetForm() {
+        this.formData={};
+        this.checkitemIds=[];
+        this.activeName = 'first';
       },
       // 弹出添加窗口
       handleCreate() {
