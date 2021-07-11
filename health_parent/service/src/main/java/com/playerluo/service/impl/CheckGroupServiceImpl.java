@@ -57,4 +57,34 @@ public class CheckGroupServiceImpl implements CheckGroupService {
   }
 
 
+  /**
+   * 根据ID查询检查组中的检查项
+   * @param groupId
+   * @return
+   */
+  @Override
+  public List<Integer> findItemsByGroupId(int groupId) {
+    return checkGroupDao.findItemsByGroupId(groupId);
+  }
+
+  /**
+   * 编辑检查组
+   * @param checkGroup
+   * @param checkItemIds
+   * @return
+   */
+  @Override
+  public int update(CheckGroup checkGroup, int[] checkItemIds) {
+    int row = checkGroupDao.update(checkGroup);
+    checkGroupDao.deleteByGroupId(checkGroup.getId());
+    int row2 = 0;
+    if (checkItemIds != null && checkItemIds.length > 0){
+      for (int checkItemId : checkItemIds) {
+        row2 += checkGroupDao.addByGroupId(checkGroup.getId(), checkItemId);
+      }
+    }
+    return row > 0 && row2 == checkItemIds.length ? 1 : 0;
+  }
+
+
 }

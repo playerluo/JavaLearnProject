@@ -4,17 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.playerluo.dao.CheckGroupDao">
 
-  <!-- 新增检查组 -->
-  <!-- keyProperty : 要求添加完毕后返回的主键赋值到对象里哪个属性上 -->
-  <!-- useGeneratedKeys : 默认值是false,使用数据库创建出来的自增id-->
+  <!--
+    新增检查组操作
+      keyProperty : 要求添加完毕后返回的主键赋值到对象里哪个属性上
+      useGeneratedKeys : 默认值是false,使用数据库创建出来的自增id
+  -->
   <insert id="add" parameterType="checkGroup" keyProperty="id" useGeneratedKeys="true">
     insert into t_checkgroup values (null , #{code} , #{name} , #{helpCode} , #{sex} , #{remark} , #{attention} );
   </insert>
 
+  <!-- 将数据填入检查项和检查组的中间表 -->
   <insert id="addCheckGroupItems">
     insert into t_checkgroup_checkitem values (#{groupId},#{itemId})
   </insert>
 
+  <!--检查组的查询操作-->
   <select id="findPage" parameterType="queryPageBean" resultType="CheckGroup">
     select * from t_checkgroup
     <where>
@@ -24,5 +28,25 @@
     </where>
   </select>
 
+  <!--根据检查组ID查询相关检查项-->
+  <select id="findItemsByGroupId" parameterType="int" resultType="integer">
+    select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{groupId}
+  </select>
 
+  <!-- 更新检查组信息 -->
+  <update id="update" parameterType="checkGroup">
+    update t_checkgroup
+    set code = #{code} , name = #{name} , helpCode = #{helpCode} , sex = #{sex} ,remark = #{remark} ,attention = #{attention}
+    where id = #{id}
+  </update>
+
+  <!-- 根据ID删除检查组&检查项中间表数据 -->
+  <delete id="deleteByGroupId" parameterType="int">
+    delete from t_checkgroup_checkitem where checkgroup_id = #{groupId}
+  </delete>
+
+  <!-- 根据ID添加检查组&检查项中间表数据 -->
+  <insert id="addByGroupId" parameterType="int">
+    insert into t_checkgroup_checkitem values (#{groupId} , #{checkItemIds})
+  </insert>
 </mapper>

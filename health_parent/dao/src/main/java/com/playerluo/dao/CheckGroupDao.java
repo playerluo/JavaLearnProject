@@ -29,4 +29,33 @@ public interface CheckGroupDao {
    * @return
    */
   Page<CheckGroup> findPage(QueryPageBean queryPageBean);
+
+  /**
+   * 根据ID查询检查组中的检查项
+   * @param groupId
+   * @return
+   */
+  List<Integer> findItemsByGroupId(int groupId);
+
+  /**
+   * 更新检查组信息
+   * @param checkGroup
+   * @return
+   */
+  int update(CheckGroup checkGroup);
+
+  /**
+   * 根据ID删除检查组&检查项中间表数据
+   * @param groupId
+   * @return
+   */
+  int deleteByGroupId(int groupId);
+
+  /**
+   * 根据ID添加检查组&检查项中间表数据
+   * @param groupId
+   * @param checkItemIds
+   * @return
+   */
+  int addByGroupId(@Param("groupId") int groupId, @Param("checkItemIds") int checkItemIds);
 }

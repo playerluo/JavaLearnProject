@@ -284,6 +284,12 @@
     methods: {
       //编辑
       handleEdit() {
+        axios.put("/checkGroup/" + this.checkitemIds , this.formData).then(response => {
+          if (response.data.flag){
+            this.dialogFormVisible4Edit = false;
+            this.findPage();
+          }
+        })
       },
       //添加取消
       handleAddCancel(){
@@ -320,13 +326,27 @@
       handleCreate() {
         this.resetForm();
         this.dialogFormVisible = true;
+        //获取所有检查项
         axios.get("/checkItem/Items").then(response=>{
            this.tableData = response.data.data;
         })
       },
       // 弹出编辑窗口
       handleUpdate(row) {
-
+        this.dialogFormVisible4Edit = true;
+        //回显数据
+        this.formData = JSON.parse(JSON.stringify(row));
+        //获取所有检查项
+        axios.get("/checkItem/Items").then(response=>{
+          this.tableData = response.data.data;
+        })
+        //展示该检查组选中了哪些检查项
+        axios.get("/groupItems/" + row.id).then(response => {
+          console.log(response.data.data);
+          if (response.data.flag){
+            this.checkitemIds = response.data.data;
+          }
+        })
       },
       //切换页码
       handleCurrentChange(currentPage) {
