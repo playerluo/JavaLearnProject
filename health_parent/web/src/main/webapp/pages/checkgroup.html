@@ -292,12 +292,11 @@
       },
       //添加
       handleAdd() {
-        axios.post("/checkGroup/" + this.checkitemIds ,this.formData).then(response => {
+        axios.post("/checkGroup/" + this.checkitemIds , this.formData).then(response => {
           if (response.data.flag){
             this.$message.success(response.data.message);
             this.dialogFormVisible = false;
             this.findPage();
-            this.resetForm();
           }
         })
       },
@@ -319,6 +318,7 @@
       },
       // 弹出添加窗口
       handleCreate() {
+        this.resetForm();
         this.dialogFormVisible = true;
         axios.get("/checkItem/Items").then(response=>{
            this.tableData = response.data.data;
@@ -326,6 +326,7 @@
       },
       // 弹出编辑窗口
       handleUpdate(row) {
+
       },
       //切换页码
       handleCurrentChange(currentPage) {

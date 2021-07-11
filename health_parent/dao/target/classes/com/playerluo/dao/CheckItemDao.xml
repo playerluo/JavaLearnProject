@@ -6,8 +6,8 @@
 
   <sql id="findPageSql">
     <where>
-      <if test="queryString != ' '  ">
-        code like '%${queryString}%' or name like '%${queryString}%'
+      <if test="queryString != ' ' and queryString != null">
+        code like "%"#{queryString}"%" or name like "%"#{queryString}"%"
       </if>
     </where>
   </sql>

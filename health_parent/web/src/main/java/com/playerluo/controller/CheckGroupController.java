@@ -20,9 +20,9 @@ public class CheckGroupController {
    *
    * @return
    */
-  @PostMapping("/checkGroup/{checkitemIds}")
-  public Result add(@RequestBody CheckGroup checkGroup, @PathVariable("checkitemIds") int[] checkitemIds) {
-    int row = checkGroupService.add(checkGroup, checkitemIds);
+  @PostMapping("/checkGroup/{id}")
+  public Result add(@RequestBody CheckGroup checkGroup, @PathVariable("id") int[] checkItemIds) {
+    int row = checkGroupService.add(checkGroup, checkItemIds);
     Result result = null;
     if (row > 0){
       result = new Result(true, MessageConstant.ADD_CHECKGROUP_SUCCESS);
@@ -34,7 +34,6 @@ public class CheckGroupController {
 
   @GetMapping("/checkgroup")
   public Result findPage(QueryPageBean queryPageBean){
-    System.out.println(queryPageBean);
     try {
       PageResult<CheckGroup> page = checkGroupService.findPage(queryPageBean);
       return new Result(true , MessageConstant.QUERY_CHECKGROUP_SUCCESS , page);
